@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+
+/* Ensure root spans full height so full-viewport gradient can show */
+html, body, #root {
+  height: 100%;
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+}
+
+h1, h2{
+  font-family: "Roboto", sans-serif;
+}
+
+/* Utility class for the page background. App uses the class name `gradient`.
+   Make it cover the viewport so the gradient is visible even when content is small. */
+@layer utilities {
+  .gradient {
+    background: linear-gradient(-45deg, #00bf8f, #1cd8d2);
+    background-size: 400% 400%;
+    min-height: 100vh;
+  }
+}
