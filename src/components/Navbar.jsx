@@ -1,47 +1,63 @@
-import React, { useState } from 'react';
-import OverlayMenu from './OverlayMenu';
-import Logo from '../assets/logo.png';
-import { FiMenu } from 'react-icons/fi';
+// components/Navbar.jsx
+import React from 'react';
+import { motion } from 'framer-motion';
 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
+const Navbar = ({ menuOpen, setMenuOpen }) => {
+  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Testimonials', 'Contact'];
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 w-full flex items-center justify-between px-6 py-4 z-50 transition-transform duration-300 ${
-          visible ? 'translate-y-0' : '-translate-y-full'
-        }`}
-      >
-        {/* LEFT SIDE: Logo */}
-        <div className="flex items-center space-x-2 cursor-pointer">
-          <img src={Logo} alt="logo" className="w-8 h-8 object-contain" />
-          <div className="text-2xl font-bold text-white hidden sm:block">
-            Manav
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm"
+    >
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="text-2xl font-bold text-blue-600"
+          >
+            Portfolio
+          </motion.div>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <motion.button
+                key={item}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
+                {item}
+              </motion.button>
+            ))}
           </div>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 rounded-lg bg-blue-600 text-white"
+          >
+            <div className="w-6 h-6 flex flex-col justify-center space-y-1">
+              <span className={`block h-0.5 w-6 bg-white transition-all ${menuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+              <span className={`block h-0.5 w-6 bg-white transition-all ${menuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block h-0.5 w-6 bg-white transition-all ${menuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+            </div>
+          </motion.button>
         </div>
-
-        {/* RIGHT SIDE: Menu Icon */}
-        <button
-          onClick={() => setMenuOpen(true)}
-          className="text-white text-3xl focus:outline-none"
-          aria-label="open-menu"
-        >
-          <FiMenu />
-        </button>
-
-        <div className="hidden lg:block">
-          <a href="#contact"
-          className="bg-gradient-to-r from-pink-500 to-blue-500 text-white px-5 py-2 rounded-full font-medium shadow-lg hover:opacity-90 transition-opacity duration-300">
-            Reauch Out
-          </a>
-
-        </div>
-      </nav>
-
-      <OverlayMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
-    </>
+      </div>
+    </motion.nav>
   );
-}
+};
 
+export default Navbar;
