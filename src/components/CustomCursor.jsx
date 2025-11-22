@@ -1,39 +1,109 @@
+// components/CustomCursor.jsx
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
-import React, { useState, useEffect } from 'react';
-
-export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+const CustomCursor = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cursorVariant, setCursorVariant] = useState('default');
+  const [isPointer, setIsPointer] = useState(false);
 
   useEffect(() => {
-    const moveHandler = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', moveHandler);
-    return () => window.removeEventListener('mousemove', moveHandler);
+    const mouseMove = (e) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    const handleMouseOver = (e) => {
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.onclick) {
+        setIsPointer(true);
+        setCursorVariant('pointer');
+      } else if (e.target.closest('.skill-item')) {
+        setCursorVariant('skill');
+      } else {
+        setIsPointer(false);
+        setCursorVariant('default');
+      }
+    };
+
+    window.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseover', handleMouseOver);
+
+    return () => {
+      window.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseover', handleMouseOver);
+    };
   }, []);
 
+  const variants = {
+    default: {
+      x: mousePosition.x - 8,
+      y: mousePosition.y - 8,
+      scale: 1,
+      mixBlendMode: 'difference' ,
+    },
+    pointer: {
+      x: mousePosition.x - 16,
+      y: mousePosition.y - 16,
+      scale: 1.5,
+      backgroundColor: '#3B82F6',
+      mixBlendMode: 'normal' ,
+    },
+    skill: {
+      x: mousePosition.x - 25,
+      y: mousePosition.y - 25,
+      scale: 2,
+      backgroundColor: '#8B5CF6',
+      mixBlendMode: 'normal' ,
+    }
+  };
+
   return (
-    <div
-      className="pointer-events-none fixed top-0 left-0"
-      style={{ zIndex: 9999 }}
-      aria-hidden
-    >
-      <div
-        // keep Tailwind classes for projects with Tailwind; inline styles ensure visibility when Tailwind isn't applied
-        className="w-20 h-20 rounded-full bg-gradient-to-r from-pink-500 to-blue-500 blur-3xl opacity-80"
-        style={{
-          transform: `translate3d(${position.x - 40}px, ${position.y - 40}px, 0)`,
-          // inline fallback background + blur to mimic Tailwind classes
-          background: 'linear-gradient(90deg, #ec4899 0%, #3b82f6 100%)',
-          filter: 'blur(20px)',
-          opacity: 0.8,
-          width: 80,
-          height: 80,
-          borderRadius: '9999px',
-          pointerEvents: 'none',
-          position: 'absolute',
-          top: 0,
-          left: 0,
+    <>
+      <motion.div
+        className="cursor-dot hidden md:block fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-50 shadow-lg"
+        variants={variants}
+        animate={cursorVariant}
+        transition={{ 
+          type: "tween", 
+          ease: "backOut",
+          duration: 0.15
         }}
       />
-    </div>
+      <motion.div
+        className="cursor-ring hidden md:block fixed top-0 left-0 w-8 h-8 border-2 border-white rounded-full pointer-events-none z-50"
+        variants={{
+          default: {
+            x: mousePosition.x - 16,
+            y: mousePosition.y - 16,
+            scale: 1,
+            opacity: 0.7
+          },
+          pointer: {
+            x: mousePosition.x - 20,
+            y: mousePosition.y - 20,
+            scale: 1.8,
+            opacity: 1,
+            borderColor: '#3B82F6'
+          },
+          skill: {
+            x: mousePosition.x - 30,
+            y: mousePosition.y - 30,
+            scale: 2.5,
+            opacity: 1,
+            borderColor: '#8B5CF6'
+          }
+        }}
+        animate={cursorVariant}
+        transition={{ 
+          type: "tween", 
+          ease: "backOut",
+          duration: 0.2
+        }}
+      />
+    </>
   );
-}
+};
+
+export default CustomCursor;

@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -31,13 +31,13 @@ function App() {
   }
 
   return (
-    <div className="App relative bg-gray-50 min-h-screen">
+    <div className="App relative bg-white min-h-screen">
       <CustomCursor />
       <ParticleBackground />
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <OverlayMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       
-      <main>
+      <main className="bg-white">
         <Home />
         <About />
         <Skills />
