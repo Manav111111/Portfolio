@@ -1,4 +1,4 @@
-// sections/Home.jsx
+import react from 'react';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Github, Linkedin, Twitter, Mail, ArrowRight } from 'lucide-react';
