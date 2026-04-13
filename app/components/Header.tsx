@@ -1,46 +1,102 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function Header(): React.JSX.Element {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#projects", label: "Projects" },
+    { href: "#experience", label: "Experience" },
+    { href: "#contact", label: "Contact" },
+  ];
+
+  const handleNavClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#110720]/80 backdrop-blur-sm border-b border-white/10">
-      <nav className="px-6 py-4">
-        <div className="container mx-auto max-w-6xl flex items-center justify-between h-full">
-          <Link 
-            href="/" 
-            className="text-2xl font-bold text-white hover:text-purple-400 transition-colors"
+    <>
+      <header className={`header-nav ${isScrolled ? "scrolled" : ""}`}>
+        <nav className="px-6 py-4">
+          <div className="container mx-auto max-w-6xl flex items-center justify-between">
+            <Link 
+              href="/" 
+              className="text-xl font-bold text-white hover:text-purple-400 transition-colors tracking-tight"
+            >
+              <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] bg-clip-text text-transparent font-extrabold text-2xl">MG</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <ul className="desktop-nav flex items-center gap-8 list-none m-0 p-0">
+              {navLinks.map((link) => (
+                <li key={link.href} className="m-0 p-0">
+                  <Link 
+                    href={link.href}
+                    className="nav-link"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li className="m-0 p-0">
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="resume-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Resume
+                </a>
+              </li>
+            </ul>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              <span style={isMobileMenuOpen ? { transform: "rotate(45deg) translateY(7px)" } : {}} />
+              <span style={isMobileMenuOpen ? { opacity: 0 } : {}} />
+              <span style={isMobileMenuOpen ? { transform: "rotate(-45deg) translateY(-7px)" } : {}} />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Navigation Overlay */}
+      <div className={`mobile-nav ${isMobileMenuOpen ? "open" : ""}`}>
+        {navLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={handleNavClick}
           >
-          <Image src="/logo/logo.svg" alt="Logo" width={100} height={100} style={{ width: "auto", height: "auto" }} />
+            {link.label}
           </Link>
-          <ul className="flex items-center gap-8 list-none m-0 p-0">
-            <li className="m-0 p-0">
-              <Link 
-                href="#home" 
-                className="text-white hover:text-purple-400 transition-colors text-base font-normal"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="m-0 p-0">
-              <Link 
-                href="#about" 
-                className="text-white hover:text-purple-400 transition-colors text-base font-normal"
-              >
-                About
-              </Link>
-            </li>
-            <li className="m-0 p-0">
-              <Link 
-                href="#lab" 
-                className="text-white hover:text-purple-400 transition-colors text-base font-normal"
-              >
-                Lab
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+        ))}
+        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="resume-btn mt-4">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Resume
+        </a>
+      </div>
+    </>
   );
 }
-

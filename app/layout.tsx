@@ -1,45 +1,51 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 
 import "./globals.css";
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-inter",
   display: "swap",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "Ibrahim Memon - Software Engineer & UI/UX Designer",
-  description: "A self-taught UI/UX designer and Software Engineer at WebHR. Creating meaningful and delightful digital products that balance user needs and business goals. 3+ years of industry experience.",
+  title: "Manav Gupta - Full Stack AI Developer",
+  description: "Full Stack Developer specializing in Web Development, App Development, and AI-powered applications. Freelancing and building intelligent solutions.",
   keywords: [
-    "Ibrahim Memon",
-    "Software Engineer",
-    "UI/UX Designer",
-    "Frontend Developer",
+    "Manav Gupta",
+    "Full Stack Developer",
+    "AI Developer",
+    "Web Developer",
+    "App Developer",
     "React Developer",
     "Next.js Developer",
-    "Web Designer",
-    "WebHR Engineer",
+    "Freelancer",
+    "AI Applications",
     "Portfolio",
   ],
-  authors: [{ name: "Ibrahim Memon" }],
-  creator: "Ibrahim Memon",
-  publisher: "Ibrahim Memon",
+  authors: [{ name: "Manav Gupta" }],
+  creator: "Manav Gupta",
+  publisher: "Manav Gupta",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ibiimemon.com",
-    title: "Ibrahim Memon - Software Engineer & UI/UX Designer",
-    description: "A self-taught UI/UX designer and Software Engineer at WebHR. Creating meaningful and delightful digital products.",
-    siteName: "Ibrahim Memon Portfolio",
+    title: "Manav Gupta - Full Stack AI Developer",
+    description: "Full Stack Developer specializing in Web Development, App Development, and AI-powered applications.",
+    siteName: "Manav Gupta Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ibrahim Memon - Software Engineer & UI/UX Designer",
-    description: "A self-taught UI/UX designer and Software Engineer at WebHR.",
+    title: "Manav Gupta - Full Stack AI Developer",
+    description: "Full Stack Developer specializing in Web Development, App Development, and AI-powered applications.",
   },
   robots: {
     index: true,
@@ -67,11 +73,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="canonical" href="https://ibiimemon.com" />
-      </head>
       <body
-        className={`${poppins.variable} font-sans antialiased`}
+        className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}
       >
         {children}
         <Analytics />

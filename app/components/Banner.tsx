@@ -4,151 +4,181 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Banner(): React.JSX.Element {
-  const texts = ["Software Engineer", "UI/UX Designer", "React Native Developer"];
+  const texts = ["Full Stack Developer", "AI Builder", "Problem Solver"];
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(100);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isEmittingLight, setIsEmittingLight] = useState(false);
 
+  // Typing effect hook
   useEffect(() => {
     const currentText = texts[currentTextIndex];
     
     if (!isDeleting) {
-      // Typing effect
       if (displayedText.length < currentText.length) {
         const timeout = setTimeout(() => {
           setDisplayedText(currentText.slice(0, displayedText.length + 1));
         }, typingSpeed);
         return () => clearTimeout(timeout);
       } else {
-        // Finished typing, wait before deleting
         const timeout = setTimeout(() => {
           setIsDeleting(true);
-          setTypingSpeed(50); // Faster deletion
+          setTypingSpeed(50);
         }, 2000);
         return () => clearTimeout(timeout);
       }
     } else {
-      // Deleting effect
       if (displayedText.length > 0) {
         const timeout = setTimeout(() => {
           setDisplayedText(currentText.slice(0, displayedText.length - 1));
         }, typingSpeed);
         return () => clearTimeout(timeout);
       } else {
-        // Finished deleting, move to next text
         setIsDeleting(false);
-        setTypingSpeed(100); // Reset typing speed
+        setTypingSpeed(100);
         setCurrentTextIndex((prev) => (prev + 1) % texts.length);
       }
     }
   }, [displayedText, isDeleting, currentTextIndex, texts, typingSpeed]);
+
+  // Auto flip & light emission hook
+  useEffect(() => {
+    const flipInterval = setInterval(() => {
+      setIsEmittingLight(true);
+      
+      setTimeout(() => {
+        setIsFlipped((prev) => !prev);
+        setIsEmittingLight(false);
+      }, 600);
+      
+    }, 4000);
+    
+    return () => clearInterval(flipInterval);
+  }, []);
+
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center pt-20 px-6"
-    >
+    <section id="home" className="hero-section px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col lg:flex-row items-center ">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          
           {/* Left side - Text content */}
-          {/* Right side - Character image */}
-          <div className="flex justify-center lg:justify-end relative w-full lg:w-auto">
-            <div className="relative top-10">
-              {/* Mobile: Hello text positioned on top of image */}
-              <div className="lg:hidden  -top-150 z-10">
-                <div className="relative inline-block ">
-                  <Image
-                    src="/assets/arrow.png"
-                    alt="Arrow pointer"
-                    width={80}
-                    height={80}
-                    className="absolute top-5 rotate-z-280"
-                    style={{ width: "auto", height: "auto" }}
-                  />
-                  <div className="relative">
-                    <p className="text-white text-lg whitespace-nowrap">
-                      Hello! I Am{" "}
-                      <span className="text-purple-400">Ibrahim Memon</span>
-                    </p>
-                  </div>
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-white/10"></div>
-                </div>
-              </div>
-              <Image
-                src="/assets/me.png"
-                alt="Ibrahim Memon - Software Engineer and Designer"
-                width={300}
-                height={300}
-                className=" max-w-md absolute"
-                style={{ width: "auto", height: "auto" }}
-                priority
-              />
-              <Image
-                src="/assets/me-glow.png"
-                alt="Ibrahim Memon - Software Engineer and Designer"
-                width={300}
-                height={300}
-                className="max-w-md "
-                style={{ width: "auto", height: "auto" }}
-                priority
-              />
+          <div className="flex-1 space-y-6 text-center lg:text-left order-2 lg:order-1">
+            
+            {/* Role Badge */}
+            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.1s", animationFillMode: "forwards" }}>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 text-[#A78BFA] text-sm font-medium">
+                <span className="status-dot"></span>
+                Available for Freelance
+              </span>
             </div>
-          </div>
-          <div className="flex-1 space-y-6 text-center lg:text-left">
-            {/* Desktop: Hello text in original position */}
-            <div className="hidden lg:inline-block relative">
-              <Image
-                src="/assets/arrow.png"
-                alt="Arrow pointer"
-                width={100}
-                height={100}
-                className="absolute "
-                style={{ left: "-100px", top: "-50px", width: "auto", height: "auto" }}
-              />
-              <div style={{ bottom: 40, position: "relative" }}>
-                <p className="text-white text-lg">
-                  Hello! I Am{" "}
-                  <span className="text-purple-400">Ibrahim Memon</span>
-                </p>
-              </div>
-              <div className="absolute -bottom-2 left-8 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-white/10"></div>
-            </div>
-            <div className="">
-              <p className="text-2xl"> A Designer who </p>
-              <h1 className="text-5xl tracking-tight lg:text-7xl font-semibold text-white leading-tight">
-                Judges a book
-                <br /> by its{" "}
-                <span className="relative inline-block">
-                  <Image src="/assets/circle.png" alt="Circle" width={200} height={200} className="absolute mt-2" />
-                  <span className="bg-gradient-to-r from-violet-600 via-violet-400 to-violet-600 bg-clip-text text-transparent">
-                    cover
-                  </span>
-                </span>
-                ...
+
+            {/* Name */}
+            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.2s", animationFillMode: "forwards" }}>
+              <h1 className="hero-name">
+                MANAV<br />GUPTA
               </h1>
-              <p className="text-md text-white/80">
-                Because if the cover does not impress you what else can?
+            </div>
+
+            {/* Typing Effect */}
+            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.3s", animationFillMode: "forwards" }}>
+              <p className="text-xl lg:text-2xl text-[#E5E7EB] font-medium">
+                I build scalable, high-performance{" "}
+                <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] bg-clip-text text-transparent">
+                  {displayedText}
+                </span>
+                <span className="text-[#8B5CF6] animate-pulse">|</span>
               </p>
             </div>
+
+            {/* Subtitle */}
+            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.4s", animationFillMode: "forwards" }}>
+              <p className="hero-subtitle mx-auto lg:mx-0">
+                Crafting intelligent web &amp; mobile applications powered by AI. From concept to deployment, I deliver premium digital experiences.
+              </p>
+            </div>
+
+            {/* Tech Tags */}
+            <div className="animate-fade-in-up flex flex-wrap gap-3 justify-center lg:justify-start" style={{ opacity: 0, animationDelay: "0.5s", animationFillMode: "forwards" }}>
+              <span className="hero-tag">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+                </svg>
+                Web Dev
+              </span>
+              <span className="hero-tag">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+                App Dev
+              </span>
+              <span className="hero-tag">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93" /><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93" /><path d="M12 18v4" /><path d="M8 22h8" /><circle cx="12" cy="14" r="4" />
+                </svg>
+                AI / ML
+              </span>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="animate-fade-in-up flex flex-wrap gap-4 justify-center lg:justify-start" style={{ opacity: 0, animationDelay: "0.6s", animationFillMode: "forwards" }}>
+              <a href="#projects" className="hero-btn hero-btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+                </svg>
+                View Projects
+              </a>
+              <a href="#contact" className="hero-btn hero-btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+                </svg>
+                Contact Me
+              </a>
+            </div>
           </div>
-        </div>
-        <div className="space-y-3 pt-15 text-center lg:text-left">
-          <p className="text-5xl text-white font-bold">
-            I&apos;m a {displayedText}
-            <span className="animate-pulse">|</span>
-          </p>
-          <p className="text-lg lg:text-xl text-white/90 tracking-wide flex flex-wrap items-center justify-center lg:justify-start gap-2">
-            <span>Currently, I&apos;m a Software Engineer at</span>
-            <span className="flex items-center gap-2">
-              <Image src="/assets/webhr.webp" alt="WebHR" width={20} height={20} className="w-5 h-5" style={{ width: "auto", height: "auto" }} />
-              <span className="text-blue-400 font-semibold">WebHR,</span>
-            </span>
-          </p>
-          <p className="text-lg text-white/80 max-w-2xl mt-15 mx-auto lg:mx-0">
-            A self-taught UI/UX designer, functioning in the industry for 3+
-            years now. I make meaningful and delightful digital products that
-            create an equilibrium between user needs and business goals.
-          </p>
+
+          {/* Right side - Hero Image */}
+          <div className="flex-shrink-0 order-1 lg:order-2 lg:mt-12 animate-fade-in-right" style={{ opacity: 0, animationDelay: "0.3s", animationFillMode: "forwards" }}>
+            <div 
+              className="hero-image-container animate-float group"
+              style={{ perspective: "1000px" }}
+            >
+              <div 
+                className={`relative transition-transform duration-1000 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {/* Front (Cyberpunk) */}
+                <div 
+                  className={`hero-image-wrapper animate-border-glow relative transition-all duration-500 ${isEmittingLight && !isFlipped ? 'brightness-[1.3] shadow-[0_0_100px_rgba(139,92,246,0.9)] scale-[1.02]' : 'scale-100'}`}
+                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+                >
+                  <Image
+                    src="/assets/hero-character.jpg"
+                    alt="Manav Gupta - Full Stack AI Developer"
+                    fill
+                    sizes="(max-width: 768px) 280px, 380px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+
+                {/* Back (Real Image) */}
+                <div 
+                  className={`hero-image-wrapper animate-border-glow absolute inset-0 transition-all duration-500 ${isEmittingLight && isFlipped ? 'brightness-[1.3] shadow-[0_0_100px_rgba(139,92,246,0.9)] scale-[1.02]' : 'scale-100'}`}
+                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+                >
+                  <Image
+                    src="/assets/me-real.jpg"
+                    alt="Manav Gupta - Real Photo"
+                    fill
+                    sizes="(max-width: 768px) 280px, 380px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

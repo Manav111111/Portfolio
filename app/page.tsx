@@ -7,12 +7,12 @@ import Footer from "./components/Footer";
 
 export default function Home(): React.JSX.Element {
   return (
-    <main className="min-h-screen bg-[#110720] text-white">
+    <main className="min-h-screen bg-[#0B0F19] text-[#E5E7EB]">
       <Header />
       <Banner />
-      <Experience />
       <About />
       <Projects />
+      <Experience />
       <Footer />
     </main>
   );
