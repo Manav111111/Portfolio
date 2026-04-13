@@ -11,56 +11,78 @@ interface Project {
   highlights?: string[];
 }
 
+
 const featuredProjects: Project[] = [
   {
     id: 1,
-    title: "Virtual Course – Online Learning Platform",
-    description: "A modern MERN stack learning platform with secure authentication, integrated payments, and role-based access for students and instructors.",
+    title: "Course Marketplace Platform",
+    description: "MERN-based platform for buying and selling courses with secure authentication and payment integration.",
     image: "/projects/project-1-v2.png",
     link: "https://lms-4-97qt.onrender.com/",
-    github: "https://github.com/",
-    tech: ["React", "Node.js", "MongoDB", "Razorpay", "OAuth"],
-    highlights: ["Authentication & OAuth", "Payment Integration", "Scalable Backend"],
+    github: "https://github.com/Manav111111/VirtualCourses",
+    tech: ["React", "Node.js", "MongoDB", "Razorpay", "Firebase Auth"],
+    highlights: [
+      "Google Authentication (Firebase)",
+      "Razorpay Payment Integration",
+      "Role-Based Access Control",
+    ],
   },
   {
     id: 2,
-    title: "Code Veda 2.0 – Hackathon Platform",
-    description: "A futuristic hackathon platform blending ancient Vedic wisdom with modern technology, featuring immersive UI and event management.",
+    title: "Code Veda 2.0 – Hackathon Website",
+    description: "Official hackathon website with event details, schedules, and immersive UI for community engagement.",
     link: "https://codeveda2.vercel.app/",
     image: "/projects/project-2-v2.png",
-    github: "https://github.com/",
-    tech: ["Next.js", "TypeScript", "Vercel", "Figma"],
-    highlights: ["Immersive Design", "Event Management", "Community Driven"],
+    github: "https://github.com/AyushChoudhary6/Code-Veda-2.0",
+    tech: ["React.js", "Three.js", "Vite", "Figma"],
+    highlights: [
+      "3D Interactive UI (Three.js)",
+      "Hackathon Event Management",
+      "Responsive Design",
+    ],
   },
   {
     id: 3,
-    title: "AI Chat Application",
-    description: "Real-time AI-powered chat app with intelligent responses, built for speed and reliability.",
+    title: "Grocery E-Commerce Admin Panel",
+    description: "Admin dashboard for managing products, orders, and analytics of a grocery e-commerce application.",
     image: "/projects/project-3.png",
-    github: "https://github.com/",
-    tech: ["Next.js", "OpenAI", "WebSockets"],
-    highlights: ["Real-time Chat", "AI Responses", "Modern UI"],
-  },
-  {
-    id: 4,
-    title: "E-Commerce Dashboard",
-    description: "Full-featured dashboard for product management, sales analytics, and user monitoring at scale.",
-    image: "/projects/project-4.jpg",
-    github: "https://github.com/",
-    tech: ["React", "Node.js", "Chart.js", "MongoDB"],
-    highlights: ["Sales Analytics", "Product Management", "Data Visualization"],
+    link: "https://velocity-pro.web.app/",
+    github: "https://github.com/Manav111111/velocity-adminpanel",
+    tech: ["React", "Node.js", "MongoDB", "Firebase"],
+    highlights: [
+      "Product & Inventory Management",
+      "Order Tracking System",
+      "Backend Integration",
+    ],
   },
   {
     id: 5,
-    title: "Real Estate Platform",
-    description: "Property booking and listing platform with detailed galleries, pricing, and tour scheduling.",
+    title: "VELOCITY -Grocery Mobile App",
+    description: "Cross-platform mobile app for grocery shopping with real-time data and smooth user experience.",
+    image: "/projects/project-4.jpg",
+    github: "https://github.com/Manav111111/velocity",
+    tech: ["React Native", "Firebase", "Node.js"],
+    highlights: [
+      "Mobile-first UI",
+      "Real-time Data Sync",
+      "Cart & Order Management",
+    ],
+  },
+  {
+    id: 4,
+    title: "Premium Shoe E-Commerce Website",
+    description: "Modern e-commerce platform with premium UI for showcasing and selling footwear.",
     image: "/projects/project-5.png",
-    github: "https://github.com/",
-    tech: ["React", "Firebase", "Maps API"],
-    highlights: ["Property Listings", "Tour Scheduling", "Image Galleries"],
+    link: "https://github.com/Manav111111/bloom-app",
+    github: "https://github.com/Manav111111/bloom-app",
+    tech: ["React", "Firebase", "Node.js"],
+    highlights: [
+      "Premium UI/UX",
+      "Product Showcase",
+      "Firebase Hosting",
+    ],
   },
 ];
-
 export default function Projects(): React.JSX.Element {
   return (
     <section id="projects" className="py-32 px-6">
@@ -88,21 +110,21 @@ export default function Projects(): React.JSX.Element {
                   <h3 className="text-2xl lg:text-[1.85rem] font-bold text-white mb-5 leading-tight" style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}>
                     {project.title}
                   </h3>
-                  
+
                   {/* Description Card */}
                   <div className="relative z-10 mb-5">
                     <div className={`glass-card p-5 lg:p-6 ${isEven ? "lg:ml-[-15%]" : "lg:w-[calc(100%+15%)]"}`}>
                       <p className="text-[#9CA3AF] text-[1rem] leading-[1.75]">
                         {project.description}
                       </p>
-                      
+
                       {/* Highlights */}
                       {project.highlights && (
                         <div className="mt-4 flex flex-col gap-1.5">
                           {project.highlights.map((h) => (
                             <div key={h} className="flex items-center gap-2.5 text-[0.92rem] text-[#E5E7EB]">
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-[#22C55E] flex-shrink-0">
-                                <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                               {h}
                             </div>
@@ -111,14 +133,14 @@ export default function Projects(): React.JSX.Element {
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Tech Badges */}
                   <div className="flex flex-wrap gap-2 mb-5">
                     {project.tech.map((t) => (
                       <span key={t} className="project-badge">{t}</span>
                     ))}
                   </div>
-                  
+
                   {/* Action Links */}
                   <div className="flex flex-wrap gap-3">
                     {project.link && (
@@ -137,7 +159,7 @@ export default function Projects(): React.JSX.Element {
                         Live Demo
                       </a>
                     )}
-                    
+
                     {project.github && (
                       <a
                         href={project.github}
