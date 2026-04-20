@@ -1,4 +1,22 @@
+"use client";
+
 import Image from "next/image";
+import { Icon } from "@iconify/react";
+import { motion } from "framer-motion";
+
+const techIconMap: Record<string, string> = {
+  "React": "devicon:react",
+  "React.js": "devicon:react",
+  "React Native": "devicon:react",
+  "Node.js": "devicon:nodejs",
+  "MongoDB": "devicon:mongodb",
+  "Firebase": "devicon:firebase",
+  "Firebase Auth": "devicon:firebase",
+  "Razorpay": "logos:razorpay", 
+  "Three.js": "devicon:threejs",
+  "Vite": "devicon:vite",
+  "Figma": "devicon:figma",
+};
 
 interface Project {
   id: number;
@@ -85,11 +103,11 @@ const featuredProjects: Project[] = [
 ];
 export default function Projects(): React.JSX.Element {
   return (
-    <section id="projects" className="py-32 px-6">
+    <section id="projects" className="py-32 px-6" style={{ background: "linear-gradient(180deg, #FFFBF0 0%, #FAFAFA 50%, #FFFBF0 100%)" }}>
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-20">
           <div className="flex justify-center">
-            <h2 className="section-heading text-white">Featured Projects</h2>
+            <h2 className="section-heading">Featured Projects</h2>
           </div>
           <p className="section-subheading mt-6">
             A selection of projects that showcase my expertise in full-stack development and AI integration.
@@ -99,22 +117,44 @@ export default function Projects(): React.JSX.Element {
           const isEven = index % 2 === 1;
 
           return (
-            <div key={project.id} className="mb-28 last:mb-0">
-              <div className={`relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isEven ? "lg:grid-flow-dense" : ""
-                }`}>
-                {/* Text Content */}
-                <div className={`${isEven ? "lg:col-start-2" : ""}`}>
-                  <p className="text-[#8B5CF6] text-xs mb-3 font-bold tracking-[0.2em] uppercase">
+            <motion.div 
+              key={project.id} 
+              className="sticky mb-[15vh] last:mb-0"
+              style={{ top: `calc(12vh + ${index * 30}px)`, zIndex: index }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", bounce: 0.3 }}
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <div className="bg-[#FAFAFA] rounded-[2.5rem] shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-200/60 relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 lg:p-10">
+                {/* Image Content - Always first on mobile */}
+                <div className={`order-1 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
+                  <div className="project-image-wrapper p-2 lg:p-3">
+                    <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#F9FAFB]" style={{ minHeight: "350px" }}>
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Text Content - Always second on mobile */}
+                <div className={`order-2 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
+                  <p className="text-xs mb-3 font-bold tracking-[0.2em] uppercase" style={{ color: "var(--accent-dark)" }}>
                     Featured Project
                   </p>
-                  <h3 className="text-2xl lg:text-[1.85rem] font-bold text-white mb-5 leading-tight" style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}>
+                  <h3 className="text-2xl lg:text-[1.85rem] font-bold mb-5 leading-tight" style={{ fontFamily: "var(--font-space-grotesk), sans-serif", color: "var(--foreground)" }}>
                     {project.title}
                   </h3>
 
                   {/* Description Card */}
                   <div className="relative z-10 mb-5">
-                    <div className={`glass-card p-5 lg:p-6 ${isEven ? "lg:ml-[-15%]" : "lg:w-[calc(100%+15%)]"}`}>
-                      <p className="text-[#9CA3AF] text-[1rem] leading-[1.75]">
+                    <div className={`glass-card p-5 lg:p-6 ${isEven ? "lg:mr-[-15%]" : "lg:w-[calc(100%+15%)]"}`}>
+                      <p className="text-[1rem] leading-[1.75]" style={{ color: "var(--text-muted)" }}>
                         {project.description}
                       </p>
 
@@ -122,7 +162,7 @@ export default function Projects(): React.JSX.Element {
                       {project.highlights && (
                         <div className="mt-4 flex flex-col gap-1.5">
                           {project.highlights.map((h) => (
-                            <div key={h} className="flex items-center gap-2.5 text-[0.92rem] text-[#E5E7EB]">
+                            <div key={h} className="flex items-center gap-2.5 text-[0.92rem]" style={{ color: "var(--foreground)" }}>
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-[#22C55E] flex-shrink-0">
                                 <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
@@ -135,10 +175,16 @@ export default function Projects(): React.JSX.Element {
                   </div>
 
                   {/* Tech Badges */}
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {project.tech.map((t) => (
-                      <span key={t} className="project-badge">{t}</span>
-                    ))}
+                  <div className="flex flex-wrap gap-2.5 mb-5">
+                    {project.tech.map((t) => {
+                      const iconName = techIconMap[t];
+                      return (
+                        <span key={t} className="project-badge flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:bg-[var(--accent-glow)]" style={{ borderColor: 'rgba(0,0,0,0.1)' }}>
+                          {iconName && <Icon icon={iconName} width={16} height={16} />}
+                          {t}
+                        </span>
+                      );
+                    })}
                   </div>
 
                   {/* Action Links */}
@@ -148,7 +194,7 @@ export default function Projects(): React.JSX.Element {
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="project-link-btn project-link-primary"
+                        className="project-link-btn project-link-primary transition-transform hover:scale-105"
                         aria-label="Visit project live demo"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -165,7 +211,7 @@ export default function Projects(): React.JSX.Element {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="project-link-btn project-link-secondary"
+                        className="project-link-btn project-link-secondary transition-transform hover:scale-105"
                         aria-label="Visit project GitHub"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -176,23 +222,8 @@ export default function Projects(): React.JSX.Element {
                     )}
                   </div>
                 </div>
-
-                {/* Image Content */}
-                <div className={`${isEven ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                  <div className="project-image-wrapper p-2 lg:p-3">
-                    <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#111827]" style={{ minHeight: "350px" }}>
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

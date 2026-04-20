@@ -32,18 +32,19 @@ export default function Header(): React.JSX.Element {
       <header className={`header-nav ${isScrolled ? "scrolled" : ""}`}>
         <nav className="px-6 py-4">
           <div className="container mx-auto max-w-6xl flex items-center justify-between">
-            <Link 
-              href="/" 
-              className="text-xl font-bold text-white hover:text-purple-400 transition-colors tracking-tight"
+            <Link
+              href="/"
+              className="text-xl font-bold transition-colors tracking-tight"
+              style={{ color: "var(--foreground)" }}
             >
-              <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] bg-clip-text text-transparent font-extrabold text-2xl">MG</span>
+              <span className="bg-gradient-to-r from-[#F59E0B] to-[#F97316] bg-clip-text text-transparent font-extrabold text-2xl">MG</span>
             </Link>
 
             {/* Desktop Navigation */}
             <ul className="desktop-nav flex items-center gap-8 list-none m-0 p-0">
               {navLinks.map((link) => (
                 <li key={link.href} className="m-0 p-0">
-                  <Link 
+                  <Link
                     href={link.href}
                     className="nav-link"
                   >

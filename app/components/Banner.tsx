@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { motion, Variants } from "framer-motion";
 
 export default function Banner(): React.JSX.Element {
   const texts = ["Full Stack Developer", "AI Builder", "Problem Solver"];
@@ -9,8 +10,6 @@ export default function Banner(): React.JSX.Element {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(100);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isEmittingLight, setIsEmittingLight] = useState(false);
 
   // Typing effect hook
   useEffect(() => {
@@ -43,20 +42,22 @@ export default function Banner(): React.JSX.Element {
     }
   }, [displayedText, isDeleting, currentTextIndex, texts, typingSpeed]);
 
-  // Auto flip & light emission hook
-  useEffect(() => {
-    const flipInterval = setInterval(() => {
-      setIsEmittingLight(true);
-      
-      setTimeout(() => {
-        setIsFlipped((prev) => !prev);
-        setIsEmittingLight(false);
-      }, 600);
-      
-    }, 4000);
-    
-    return () => clearInterval(flipInterval);
-  }, []);
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
 
   return (
     <section id="home" className="hero-section px-6">
@@ -64,43 +65,49 @@ export default function Banner(): React.JSX.Element {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           
           {/* Left side - Text content */}
-          <div className="flex-1 space-y-6 text-center lg:text-left order-2 lg:order-1">
+          <motion.div 
+            className="flex-1 space-y-6 text-center lg:text-left order-2 lg:order-1"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
             
             {/* Role Badge */}
-            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.1s", animationFillMode: "forwards" }}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 text-[#A78BFA] text-sm font-medium">
+            <motion.div variants={itemVariants}>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium" style={{ background: "rgba(245, 158, 11, 0.08)", borderColor: "rgba(245, 158, 11, 0.2)", color: "var(--accent-dark)" }}>
                 <span className="status-dot"></span>
                 Available for Freelance
               </span>
-            </div>
+            </motion.div>
 
             {/* Name */}
-            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.2s", animationFillMode: "forwards" }}>
-              <h1 className="hero-name">
+            <motion.div variants={itemVariants}>
+              <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[1.05] tracking-tight bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-transparent">
                 MANAV<br />GUPTA
               </h1>
-            </div>
+            </motion.div>
 
             {/* Typing Effect */}
-            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.3s", animationFillMode: "forwards" }}>
-              <p className="text-xl lg:text-2xl text-[#E5E7EB] font-medium">
+            <motion.div variants={itemVariants}>
+              <p className="text-xl lg:text-2xl font-medium text-gray-800">
                 I build scalable, high-performance{" "}
-                <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] bg-clip-text text-transparent">
+                <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(to right, var(--accent-dark), var(--secondary))" }}>
                   {displayedText}
                 </span>
-                <span className="text-[#8B5CF6] animate-pulse">|</span>
+                <span className="animate-pulse" style={{ color: "var(--accent-dark)" }}>|</span>
               </p>
-            </div>
+            </motion.div>
 
             {/* Subtitle */}
-            <div className="animate-fade-in-up" style={{ opacity: 0, animationDelay: "0.4s", animationFillMode: "forwards" }}>
-              <p className="hero-subtitle mx-auto lg:mx-0">
+            <motion.div variants={itemVariants}>
+              <p className="text-lg text-gray-600 mx-auto lg:mx-0 max-w-[520px]">
                 Crafting intelligent web &amp; mobile applications powered by AI. From concept to deployment, I deliver premium digital experiences.
               </p>
-            </div>
+            </motion.div>
 
             {/* Tech Tags */}
-            <div className="animate-fade-in-up flex flex-wrap gap-3 justify-center lg:justify-start" style={{ opacity: 0, animationDelay: "0.5s", animationFillMode: "forwards" }}>
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-3 justify-center lg:justify-start">
               <span className="hero-tag">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
@@ -119,10 +126,10 @@ export default function Banner(): React.JSX.Element {
                 </svg>
                 AI / ML
               </span>
-            </div>
+            </motion.div>
 
             {/* CTA Buttons */}
-            <div className="animate-fade-in-up flex flex-wrap gap-4 justify-center lg:justify-start" style={{ opacity: 0, animationDelay: "0.6s", animationFillMode: "forwards" }}>
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <a href="#projects" className="hero-btn hero-btn-primary">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
@@ -135,50 +142,33 @@ export default function Banner(): React.JSX.Element {
                 </svg>
                 Contact Me
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right side - Hero Image */}
-          <div className="flex-shrink-0 order-1 lg:order-2 lg:mt-12 animate-fade-in-right" style={{ opacity: 0, animationDelay: "0.3s", animationFillMode: "forwards" }}>
-            <div 
-              className="hero-image-container animate-float group"
-              style={{ perspective: "1000px" }}
-            >
-              <div 
-                className={`relative transition-transform duration-1000 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {/* Front (Cyberpunk) */}
-                <div 
-                  className={`hero-image-wrapper animate-border-glow relative transition-all duration-500 ${isEmittingLight && !isFlipped ? 'brightness-[1.3] shadow-[0_0_100px_rgba(139,92,246,0.9)] scale-[1.02]' : 'scale-100'}`}
-                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
-                >
-                  <Image
-                    src="/assets/hero-character.jpg"
-                    alt="Manav Gupta - Full Stack AI Developer"
-                    fill
-                    sizes="(max-width: 768px) 280px, 380px"
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-
-                {/* Back (Real Image) */}
-                <div 
-                  className={`hero-image-wrapper animate-border-glow absolute inset-0 transition-all duration-500 ${isEmittingLight && isFlipped ? 'brightness-[1.3] shadow-[0_0_100px_rgba(139,92,246,0.9)] scale-[1.02]' : 'scale-100'}`}
-                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-                >
-                  <Image
-                    src="/assets/me-real.jpg"
-                    alt="Manav Gupta - Real Photo"
-                    fill
-                    sizes="(max-width: 768px) 280px, 380px"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
+          <motion.div 
+            className="flex-shrink-0 order-1 lg:order-2 lg:-mt-10"
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            <div className="hero-image-container animate-float animate-border-glow overflow-hidden">
+              <Image
+                src="/assets/me-real.jpg"
+                alt="Manav Gupta - Full Stack AI Developer"
+                fill
+                sizes="(max-width: 768px) 260px, 320px"
+                className="object-cover"
+                style={{ 
+                  transform: "rotate(-90deg) scale(1.55)",
+                  objectPosition: "right center",
+                  transformOrigin: "center center"
+                }}
+                priority
+              />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 
 export default function Home(): React.JSX.Element {
   return (
-    <main className="min-h-screen bg-[#0B0F19] text-[#E5E7EB]">
+    <main className="min-h-screen bg-[#FAFAFA] text-[#1F2937]">
       <Header />
       <Banner />
       <About />
