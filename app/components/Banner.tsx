@@ -14,7 +14,7 @@ export default function Banner(): React.JSX.Element {
   // Typing effect hook
   useEffect(() => {
     const currentText = texts[currentTextIndex];
-    
+
     if (!isDeleting) {
       if (displayedText.length < currentText.length) {
         const timeout = setTimeout(() => {
@@ -63,16 +63,16 @@ export default function Banner(): React.JSX.Element {
     <section id="home" className="hero-section px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          
+
           {/* Left side - Text content */}
-          <motion.div 
+          <motion.div
             className="flex-1 space-y-6 text-center lg:text-left order-2 lg:order-1"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
           >
-            
+
             {/* Role Badge */}
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium" style={{ background: "rgba(245, 158, 11, 0.08)", borderColor: "rgba(245, 158, 11, 0.2)", color: "var(--accent-dark)" }}>
@@ -146,25 +146,21 @@ export default function Banner(): React.JSX.Element {
           </motion.div>
 
           {/* Right side - Hero Image */}
-          <motion.div 
+          {/* Right side - Hero Image */}
+          <motion.div
             className="flex-shrink-0 order-1 lg:order-2 lg:-mt-10"
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
             viewport={{ once: true, amount: 0.15 }}
           >
-            <div className="hero-image-container animate-float animate-border-glow overflow-hidden">
+            <div className="hero-image-container animate-float animate-border-glow overflow-hidden relative w-[300px] h-[380px] md:w-[340px] md:h-[420px] mx-auto lg:mx-0 rounded-2xl">
               <Image
                 src="/assets/me-real.jpg"
                 alt="Manav Gupta - Full Stack AI Developer"
                 fill
-                sizes="(max-width: 768px) 260px, 320px"
-                className="object-cover"
-                style={{ 
-                  transform: "rotate(-90deg) scale(1.55)",
-                  objectPosition: "right center",
-                  transformOrigin: "center center"
-                }}
+                sizes="(max-width: 768px) 300px, 340px"
+                className="object-cover object-top"
                 priority
               />
             </div>
