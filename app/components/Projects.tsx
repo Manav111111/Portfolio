@@ -121,18 +121,18 @@ export default function Projects(): React.JSX.Element {
           return (
             <motion.div 
               key={project.id} 
-              className="sticky mb-[15vh] last:mb-0"
+              className="relative lg:sticky mb-10 lg:mb-[15vh] last:mb-0"
               style={{ top: `calc(12vh + ${index * 30}px)`, zIndex: index }}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", bounce: 0.3 }}
-              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+              viewport={{ once: true, amount: 0.1 }}
             >
               <div className="bg-[#FAFAFA] rounded-[2.5rem] shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-200/60 relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 lg:p-10">
                 {/* Image Content - Always first on mobile */}
                 <div className={`order-1 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
                   <div className="project-image-wrapper p-2 lg:p-3">
-                    <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#F9FAFB]" style={{ minHeight: "350px" }}>
+                    <div className="relative w-full rounded-lg overflow-hidden bg-[#F9FAFB]" style={{ minHeight: "220px" }} >
                       <Image
                         src={project.image}
                         alt={project.title}
