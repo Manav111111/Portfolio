@@ -125,7 +125,7 @@ export default function Footer(): React.JSX.Element {
 
         <div className="text-center pt-8 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
           <p className="text-sm" style={{ color: "var(--text-dim)" }}>
-            {`© ${new Date().getFullYear()} Manav Gupta. Built with Next.js & deployed on Vercel.`}
+            {`© ${new Date().getFullYear()} Manav Gupta.`}
           </p>
         </div>
       </div>
