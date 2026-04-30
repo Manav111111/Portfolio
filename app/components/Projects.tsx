@@ -93,7 +93,7 @@ const featuredProjects: Project[] = [
     title: "Premium Shoe E-Commerce Website",
     description: "Modern e-commerce platform with premium UI for showcasing and selling footwear.",
     image: "/projects/project-5.png",
-    link: "https://github.com/Manav111111/bloom-app",
+    link: "https://bloom-app-9246e.web.app/",
     github: "https://github.com/Manav111111/bloom-app",
     tech: ["React", "Firebase", "Node.js"],
     highlights: [
