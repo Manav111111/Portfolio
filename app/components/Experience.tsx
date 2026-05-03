@@ -17,8 +17,8 @@ const experiences: ExperienceItem[] = [
     id: 2,
     title: "Freelance Developer",
     company: "Self-Employed",
-    date: "2024 — Present",
-    description: "Served 10+ clients and successfully delivered 15+ projects, providing tailored web applications, mobile apps, and AI-powered software solutions.",
+    date: "2024 - Present",
+    description: "Delivered full-stack websites, dashboards, mobile apps, and AI-powered tools for clients, taking projects from concept and UI planning through deployment.",
     tags: ["React", "Node.js", "Firebase", "React Native", "Figma", "AWS"],
   },
 ];
@@ -28,13 +28,13 @@ function AnimatedCounter({ from = 0, to, label, suffix = "" }: { from?: number, 
   const rounded = useTransform(count, (latest) => Math.round(latest));
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.5 });
-  
+
   useEffect(() => {
     if (inView) {
       animate(count, to, { duration: 2, ease: "easeOut" });
     }
   }, [count, inView, to]);
-  
+
   return (
     <div ref={ref} className="stat-card glass-card">
       <div className="stat-number">
@@ -47,32 +47,30 @@ function AnimatedCounter({ from = 0, to, label, suffix = "" }: { from?: number, 
 
 export default function Experience(): React.JSX.Element {
   return (
-    <section id="experience" className="py-32 px-6">
+    <section id="experience" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-20">
           <div className="flex justify-center">
             <h2 className="section-heading">Work Experience</h2>
           </div>
           <p className="section-subheading mt-6">
-            My career journey building digital products and intelligent systems.
+            A snapshot of the work, clients, and fast-build experience behind my portfolio.
           </p>
         </div>
 
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-20">
           <AnimatedCounter to={15} label="Projects" suffix="+" />
           <AnimatedCounter to={10} label="Clients" suffix="+" />
-          <AnimatedCounter to={2} label="Years Exp" suffix="+" />
-          <AnimatedCounter to={5} label="AI Models" suffix="+" />
+          <AnimatedCounter to={2} label="Years Building" suffix="+" />
+          <AnimatedCounter to={5} label="AI Builds" suffix="+" />
         </div>
 
-        {/* Timeline */}
         <div className="timeline-container mb-24">
           <div className="timeline-line"></div>
 
           {experiences.map((exp, index) => (
-            <motion.div 
-              key={exp.id} 
+            <motion.div
+              key={exp.id}
               className="timeline-item"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -101,19 +99,17 @@ export default function Experience(): React.JSX.Element {
           ))}
         </div>
 
-        {/* Achievements & Hackathons */}
         <div className="text-center mb-12">
           <div className="flex justify-center">
             <h3 className="section-heading" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}>Achievements &amp; Hackathons</h3>
           </div>
           <p className="section-subheading mt-6">
-            Recognized for building high-quality solutions under pressure.
+            Proof that I can think clearly, build fast, and present strong products under pressure.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Trophy - Hackathon Winner */}
-          <motion.div 
+          <motion.div
             className="achievement-card"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -129,15 +125,14 @@ export default function Experience(): React.JSX.Element {
                 <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
               </svg>
             </div>
-            <div className="achievement-number">2×</div>
+            <div className="achievement-number">2x</div>
             <div className="achievement-title">Hackathon Winner</div>
             <p className="achievement-desc">
-              Won 2 hackathons with innovative solutions, demonstrating strong technical execution and creative problem-solving.
+              Built winning solutions by combining strong product thinking, polished UI, and reliable implementation.
             </p>
           </motion.div>
 
-          {/* Medal - Finalist */}
-          <motion.div 
+          <motion.div
             className="achievement-card"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -153,12 +148,11 @@ export default function Experience(): React.JSX.Element {
             <div className="achievement-number">10+</div>
             <div className="achievement-title">Hackathon Finalist</div>
             <p className="achievement-desc">
-              Recognized as a finalist in 10+ hackathons, consistently building impactful prototypes within tight deadlines.
+              Reached finalist rounds across multiple events by turning ideas into working, demo-ready products quickly.
             </p>
           </motion.div>
 
-          {/* Lightning - Under Pressure */}
-          <motion.div 
+          <motion.div
             className="achievement-card md:col-span-2 lg:col-span-1"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -173,7 +167,7 @@ export default function Experience(): React.JSX.Element {
             <div className="achievement-number">48hr</div>
             <div className="achievement-title">Rapid Prototyping</div>
             <p className="achievement-desc">
-              Capable of delivering full-stack MVPs in under 48 hours — from ideation to deployment with polished UI.
+              Comfortable taking an idea from rough concept to deployed MVP in under 48 hours with a presentable UI.
             </p>
           </motion.div>
         </div>

@@ -22,7 +22,8 @@ interface Project {
   id: number;
   title: string;
   description: string;
-  image: string;
+  image?: string;
+  video?: string;
   link?: string;
   github?: string;
   download?: string;
@@ -35,84 +36,84 @@ const featuredProjects: Project[] = [
   {
     id: 1,
     title: "Course Marketplace Platform",
-    description: "MERN-based platform for buying and selling courses with secure authentication and payment integration.",
+    description: "A full-stack learning marketplace with secure auth, role-based flows, course management, and Razorpay payments.",
     image: "/projects/project-1-v2.png",
     link: "https://lms-4-97qt.onrender.com/",
     github: "https://github.com/Manav111111/VirtualCourses",
     tech: ["React", "Node.js", "MongoDB", "Razorpay", "Firebase Auth"],
     highlights: [
-      "Google Authentication (Firebase)",
-      "Razorpay Payment Integration",
-      "Role-Based Access Control",
+      "Firebase Google authentication",
+      "Razorpay checkout flow",
+      "Role-based learner/admin access",
     ],
   },
   {
     id: 2,
-    title: "Code Veda 2.0 – Hackathon Website",
-    description: "Official hackathon website with event details, schedules, and immersive UI for community engagement.",
+    title: "VELOCITY - Grocery Mobile App",
+    description: "A React Native grocery app designed for fast browsing, cart management, live product data, and a polished mobile buying flow.",
+    video: "/assets/video_2026-05-03_22-32-32.mp4",
+    github: "https://github.com/Manav111111/velocity",
+    download: "https://drive.google.com/file/d/1bl7GVgoPACLKjtlEC4qps9QuAsV-1FBD/view?usp=sharing",
+    tech: ["React Native", "Firebase", "Node.js"],
+    highlights: [
+      "Clean mobile-first product browsing",
+      "Firebase-backed real-time updates",
+      "Cart and order journey",
+    ],
+  },
+  {
+    id: 3,
+    title: "Code Veda 2.0 - Hackathon Website",
+    description: "An event website built to present hackathon details, schedules, sponsors, and community energy through an immersive interface.",
     link: "https://codeveda2.vercel.app/",
     image: "/projects/project-2-v2.png",
     github: "https://github.com/AyushChoudhary6/Code-Veda-2.0",
     tech: ["React.js", "Three.js", "Vite", "Figma"],
     highlights: [
-      "3D Interactive UI (Three.js)",
-      "Hackathon Event Management",
-      "Responsive Design",
+      "Three.js interactive visuals",
+      "Event schedule and information flow",
+      "Responsive event experience",
     ],
   },
   {
-    id: 3,
+    id: 4,
     title: "Grocery E-Commerce Admin Panel",
-    description: "Admin dashboard for managing products, orders, and analytics of a grocery e-commerce application.",
+    description: "A grocery operations dashboard for managing products, inventory, orders, and store workflows from one admin interface.",
     image: "/projects/project-3.png",
     link: "https://velocity-pro.web.app/",
     github: "https://github.com/Manav111111/velocity-adminpanel",
     tech: ["React", "Node.js", "MongoDB", "Firebase"],
     highlights: [
-      "Product & Inventory Management",
-      "Order Tracking System",
-      "Backend Integration",
+      "Product and inventory controls",
+      "Order tracking dashboard",
+      "Backend data integration",
     ],
   },
   {
     id: 5,
-    title: "VELOCITY -Grocery Mobile App",
-    description: "Cross-platform mobile app for grocery shopping with real-time data and smooth user experience.",
-    image: "/projects/project-4.jpg",
-    github: "https://github.com/Manav111111/velocity",
-    download: "https://drive.google.com/file/d/1tWlZucr3lS2LeKcAAD0t9hqn1xro5f-a/view?usp=drivesdk",
-    tech: ["React Native", "Firebase", "Node.js"],
-    highlights: [
-      "Mobile-first UI",
-      "Real-time Data Sync",
-      "Cart & Order Management",
-    ],
-  },
-  {
-    id: 4,
     title: "Premium Shoe E-Commerce Website",
-    description: "Modern e-commerce platform with premium UI for showcasing and selling footwear.",
+    description: "A premium storefront concept for footwear with strong visual hierarchy, product-focused layouts, and Firebase deployment.",
     image: "/projects/project-5.png",
     link: "https://bloom-app-9246e.web.app/",
     github: "https://github.com/Manav111111/bloom-app",
     tech: ["React", "Firebase", "Node.js"],
     highlights: [
-      "Premium UI/UX",
-      "Product Showcase",
+      "High-end storefront design",
+      "Product showcase flow",
       "Firebase Hosting",
     ],
   },
 ];
 export default function Projects(): React.JSX.Element {
   return (
-    <section id="projects" className="py-32 px-6" style={{ background: "linear-gradient(180deg, #FFFBF0 0%, #FAFAFA 50%, #FFFBF0 100%)" }}>
+    <section id="projects" className="py-24 sm:py-28 lg:py-32 px-4 sm:px-6" style={{ background: "linear-gradient(180deg, #FFFBF0 0%, #FAFAFA 50%, #FFFBF0 100%)" }}>
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-20">
           <div className="flex justify-center">
             <h2 className="section-heading">Featured Projects</h2>
           </div>
           <p className="section-subheading mt-6">
-            A selection of projects that showcase my expertise in full-stack development and AI integration.
+            Selected work that shows how I combine product design, frontend polish, backend logic, and mobile execution.
           </p>
         </div>
         {featuredProjects.map((project, index) => {
@@ -128,18 +129,33 @@ export default function Projects(): React.JSX.Element {
               transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
               viewport={{ once: true, amount: 0.1 }}
             >
-              <div className="bg-[#FAFAFA] rounded-[2.5rem] shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-200/60 relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 lg:p-10">
+              <div className="project-card-shell bg-[#FAFAFA] shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-200/60 relative grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-12 items-center p-4 sm:p-6 lg:p-10">
                 {/* Image Content - Always first on mobile */}
                 <div className={`order-1 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
                   <div className="project-image-wrapper p-2 lg:p-3">
-                    <div className="relative w-full rounded-lg overflow-hidden bg-[#F9FAFB]" style={{ minHeight: "220px" }} >
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-contain"
-                      />
+                    <div className="project-media-frame relative w-full rounded-lg overflow-hidden bg-[#F9FAFB]">
+                      {project.video ? (
+                        <video
+                          src={project.video}
+                          className="h-full w-full object-contain"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          aria-label={`${project.title} preview video`}
+                        />
+                      ) : (
+                        project.image && (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            className="object-contain"
+                          />
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -147,7 +163,7 @@ export default function Projects(): React.JSX.Element {
                 {/* Text Content - Always second on mobile */}
                 <div className={`order-2 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
                   <p className="text-xs mb-3 font-bold tracking-[0.2em] uppercase" style={{ color: "var(--accent-dark)" }}>
-                    Featured Project
+                    Case Study {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="text-2xl lg:text-[1.85rem] font-bold mb-5 leading-tight" style={{ fontFamily: "var(--font-space-grotesk), sans-serif", color: "var(--foreground)" }}>
                     {project.title}

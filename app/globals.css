@@ -24,6 +24,10 @@
   --surface-hover: rgba(0, 0, 0, 0.05);
   --surface-border: rgba(0, 0, 0, 0.08);
   --surface-border-hover: rgba(245, 158, 11, 0.35);
+  --font-inter: Arial, Helvetica, sans-serif;
+  --font-space-grotesk: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  --ink-soft: #374151;
+  --warm-panel: #fff7ed;
 }
 
 @theme inline {
@@ -350,7 +354,9 @@ img {
   padding-top: 100px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFF9ED 50%, #FFFBF0 100%);
+  background:
+    linear-gradient(135deg, rgba(182, 36, 75, 0.06) 0%, transparent 34%),
+    linear-gradient(180deg, #FFFFFF 0%, #FFF9ED 50%, #FFFBF0 100%);
 }
 
 .hero-section::before {
@@ -375,6 +381,28 @@ img {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(249, 115, 22, 0.05) 0%, transparent 70%);
   pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(2.15rem, 5.4vw, 4.15rem);
+  letter-spacing: 0;
+  max-width: 720px;
+}
+
+.hero-portrait-shell {
+  width: min(78vw, 380px);
+}
+
+.hero-image-container {
+  width: 100%;
+  aspect-ratio: 0.78;
+  border-radius: 26px;
+  border: 3px solid rgba(182, 36, 75, 0.24);
+  box-shadow: 0 24px 70px rgba(31, 41, 55, 0.14), 0 0 42px rgba(182, 36, 75, 0.12);
+}
+
+.hero-image-container img {
+  object-position: center 18%;
 }
 
 .hero-tag {
@@ -473,10 +501,6 @@ img {
   box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
 }
 
-.hero-image-container {
-  position: relative;
-}
-
 .hero-image-wrapper {
   position: relative;
   width: 320px;
@@ -505,7 +529,7 @@ img {
   margin-bottom: 1.5rem;
   position: relative;
   display: inline-block;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   color: var(--foreground);
 }
 
@@ -528,6 +552,10 @@ img {
   margin: 0 auto;
   text-align: center;
   line-height: 1.8;
+}
+
+#about {
+  background: linear-gradient(180deg, #fffbf0 0%, #ffffff 46%, #fafafa 100%);
 }
 
 /* ===== EXPERIENCE TIMELINE ===== */
@@ -586,7 +614,7 @@ img {
 .timeline-card {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 2rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
@@ -656,7 +684,7 @@ img {
 .experience-card {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 1.5rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
@@ -669,10 +697,17 @@ img {
 }
 
 /* ===== PROJECT CARDS ===== */
+.project-card-shell {
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 247, 237, 0.86)),
+    #fafafa;
+}
+
 .project-image-wrapper {
   position: relative;
   width: 100%;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -684,6 +719,16 @@ img {
   transform: scale(1.02);
   box-shadow: 0 20px 50px rgba(245, 158, 11, 0.1);
   border-color: rgba(245, 158, 11, 0.25);
+}
+
+.project-media-frame {
+  aspect-ratio: 16 / 10;
+  min-height: 240px;
+}
+
+.project-media-frame video {
+  display: block;
+  background: #f9fafb;
 }
 
 .project-badge {
@@ -712,7 +757,7 @@ img {
   align-items: center;
   gap: 8px;
   padding: 12px 26px;
-  border-radius: 10px;
+  border-radius: 9px;
   font-weight: 600;
   font-size: 0.92rem;
   cursor: pointer;
@@ -750,7 +795,7 @@ img {
   color: var(--foreground);
   line-height: 1.9;
   text-align: center;
-  max-width: 720px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
@@ -851,6 +896,7 @@ img {
   text-align: center;
   padding: 1.5rem;
   position: relative;
+  border-radius: 14px;
 }
 
 .stat-number {
@@ -877,7 +923,7 @@ img {
 .achievement-card {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 2rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
@@ -1008,9 +1054,27 @@ img {
     display: none;
   }
 
-  .hero-image-wrapper {
-    width: 260px;
-    height: 290px;
+  .hero-section {
+    min-height: auto;
+    padding-top: 96px;
+    padding-bottom: 64px;
+  }
+
+  .hero-portrait-shell {
+    width: min(76vw, 320px);
+  }
+
+  .hero-image-container {
+    border-radius: 22px;
+  }
+
+  .project-card-shell {
+    border-radius: 20px;
+  }
+
+  .project-media-frame {
+    aspect-ratio: 4 / 3;
+    min-height: 210px;
   }
 
   .timeline-line {
@@ -1057,7 +1121,7 @@ img {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
+  border-radius: 14px;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
 }

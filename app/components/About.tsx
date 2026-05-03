@@ -41,17 +41,17 @@ export default function About(): React.JSX.Element {
             className="about-text"
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
           >
-            I&apos;m a passionate <span className="about-highlight">Full Stack Developer</span> who loves
-            building intelligent, scalable applications. From crafting beautiful web interfaces to
-            developing mobile apps and integrating <span className="about-highlight">AI models</span>,
-            I bring ideas to life with clean code and modern design.
+            I&apos;m a <span className="about-highlight">full-stack developer</span> focused on building
+            useful products end to end: responsive interfaces, scalable APIs, mobile apps, dashboards,
+            and <span className="about-highlight">AI-powered workflows</span> that feel simple for real users.
           </motion.p>
           <motion.p 
             className="about-text mt-6"
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
           >
-            Currently freelancing and building <span className="about-highlight">AI-powered applications</span> that
-            solve real-world problems. Always exploring the intersection of technology and creativity.
+            My work sits at the intersection of product thinking and execution. I care about clear
+            UI, dependable engineering, fast iteration, and shipping software that looks professional
+            the moment someone opens it.
           </motion.p>
         </motion.div>
         
@@ -75,7 +75,7 @@ export default function About(): React.JSX.Element {
         </motion.div>
 
         <p className="section-subheading mb-10 text-center">
-          Technologies I work with across web, mobile, and AI development.
+          A practical stack for shipping complete web, mobile, backend, and AI products.
         </p>
         <div className="flex justify-center w-full relative z-10">
           <TechSkills />

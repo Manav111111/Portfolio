@@ -4,16 +4,17 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 
+const heroTexts = ["Full-Stack Products", "AI-Powered Apps", "Mobile Experiences"];
+
 export default function Banner(): React.JSX.Element {
-  const texts = ["Full Stack Developer", "AI Builder", "Problem Solver"];
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(100);
 
   // Typing effect hook
   useEffect(() => {
-    const currentText = texts[currentTextIndex];
+    const currentText = heroTexts[currentTextIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
 
     if (!isDeleting) {
       if (displayedText.length < currentText.length) {
@@ -24,7 +25,6 @@ export default function Banner(): React.JSX.Element {
       } else {
         const timeout = setTimeout(() => {
           setIsDeleting(true);
-          setTypingSpeed(50);
         }, 2000);
         return () => clearTimeout(timeout);
       }
@@ -35,12 +35,14 @@ export default function Banner(): React.JSX.Element {
         }, typingSpeed);
         return () => clearTimeout(timeout);
       } else {
-        setIsDeleting(false);
-        setTypingSpeed(100);
-        setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+        const timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentTextIndex((prev) => (prev + 1) % heroTexts.length);
+        }, typingSpeed);
+        return () => clearTimeout(timeout);
       }
     }
-  }, [displayedText, isDeleting, currentTextIndex, texts, typingSpeed]);
+  }, [displayedText, isDeleting, currentTextIndex]);
 
 
   const containerVariants: Variants = {
@@ -62,7 +64,7 @@ export default function Banner(): React.JSX.Element {
   return (
     <section id="home" className="hero-section px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
           {/* Left side - Text content */}
           <motion.div
@@ -77,21 +79,21 @@ export default function Banner(): React.JSX.Element {
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium" style={{ background: "rgba(245, 158, 11, 0.08)", borderColor: "rgba(245, 158, 11, 0.2)", color: "var(--accent-dark)" }}>
                 <span className="status-dot"></span>
-                Available for Freelance
+                Freelance Full-Stack Developer
               </span>
             </motion.div>
 
             {/* Name */}
             <motion.div variants={itemVariants}>
-              <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[1.05] tracking-tight bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                MANAV<br />GUPTA
+              <h1 className="hero-title font-bold leading-[1.12] bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                Full-stack developer building web, mobile, and AI products.
               </h1>
             </motion.div>
 
             {/* Typing Effect */}
             <motion.div variants={itemVariants}>
               <p className="text-xl lg:text-2xl font-medium text-gray-800">
-                I build scalable, high-performance{" "}
+                I turn ideas into{" "}
                 <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(to right, var(--accent-dark), var(--secondary))" }}>
                   {displayedText}
                 </span>
@@ -102,7 +104,7 @@ export default function Banner(): React.JSX.Element {
             {/* Subtitle */}
             <motion.div variants={itemVariants}>
               <p className="text-lg text-gray-600 mx-auto lg:mx-0 max-w-[520px]">
-                Crafting intelligent web &amp; mobile applications powered by AI. From concept to deployment, I deliver premium digital experiences.
+                I help founders, students, and teams ship production-ready applications with clean interfaces, reliable backends, and practical AI features.
               </p>
             </motion.div>
 
@@ -145,22 +147,20 @@ export default function Banner(): React.JSX.Element {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Hero Image */}
-          {/* Right side - Hero Image */}
           <motion.div
-            className="flex-shrink-0 order-1 lg:order-2 lg:-mt-10"
+            className="hero-portrait-shell flex-shrink-0 order-1 lg:order-2"
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
             viewport={{ once: true, amount: 0.15 }}
           >
-            <div className="hero-image-container animate-float animate-border-glow overflow-hidden relative w-[300px] h-[380px] md:w-[340px] md:h-[420px] mx-auto lg:mx-0 rounded-2xl">
+            <div className="hero-image-container animate-float animate-border-glow overflow-hidden relative mx-auto lg:mx-0">
               <Image
                 src="/assets/me-real.jpg"
                 alt="Manav Gupta - Full Stack AI Developer"
                 fill
-                sizes="(max-width: 768px) 300px, 340px"
-                className="object-cover object-top"
+                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 340px, 380px"
+                className="object-cover"
                 priority
               />
             </div>

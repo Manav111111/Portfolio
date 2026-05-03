@@ -28,8 +28,8 @@ export default function Footer(): React.JSX.Element {
             className="section-subheading mt-8"
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
           >
-            Have an exciting project in mind or need an AI-powered solution?
-            <br />{"I'm currently open for freelance work and collaborations."}
+            Need a website, app, dashboard, or AI feature that looks sharp and works reliably?
+            <br />{"I'm open to freelance work, collaborations, and product builds."}
           </motion.p>
         </motion.div>
 
@@ -125,7 +125,7 @@ export default function Footer(): React.JSX.Element {
 
         <div className="text-center pt-8 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
           <p className="text-sm" style={{ color: "var(--text-dim)" }}>
-            {`© ${new Date().getFullYear()} Manav Gupta.`}
+            {`© ${new Date().getFullYear()} Manav Gupta. Built with care, code, and curiosity.`}
           </p>
         </div>
       </div>
