@@ -29,6 +29,9 @@ const skills = [
     gradient: "from-[#F59E0B] to-[#F97316]",
     items: [
       { label: "React Native", icon: "devicon:react" },
+
+
+      
       { label: "Expo", icon: "simple-icons:expo" },
       { label: "Firebase", icon: "devicon:firebase" },
       { label: "Supabase", icon: "devicon:supabase" },

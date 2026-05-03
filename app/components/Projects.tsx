@@ -53,7 +53,7 @@ const featuredProjects: Project[] = [
     description: "A React Native grocery app designed for fast browsing, cart management, live product data, and a polished mobile buying flow.",
     video: "/assets/video_2026-05-03_22-32-32.mp4",
     github: "https://github.com/Manav111111/velocity",
-    download: "https://drive.google.com/file/d/1bl7GVgoPACLKjtlEC4qps9QuAsV-1FBD/view?usp=sharing",
+    download: "https://drive.google.com/file/d/1bl7GVgoPACLKjtlEC4qps9QuAsV-1FBD/view",
     tech: ["React Native", "Firebase", "Node.js"],
     highlights: [
       "Clean mobile-first product browsing",
